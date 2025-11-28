@@ -1,0 +1,15 @@
+[submodule "grpo_reproduce"]
+	path = grpo_reproduce
+	url = https://github.com/TeenLucifer/grpo_reproduce.git
+[submodule "ppo_reproduce"]
+	path = ppo_reproduce
+	url = https://github.com/TeenLucifer/ppo_reproduce.git
+[submodule "dpo_reproduce"]
+	path = dpo_reproduce
+	url = https://github.com/TeenLucifer/dpo_reproduce.git
+[submodule "dapo_reproduce"]
+	path = dapo_reproduce
+	url = https://github.com/TeenLucifer/dapo_reproduce.git
+[submodule "vlm_reproduce"]
+	path = vlm_reproduce
+	url = https://github.com/TeenLucifer/vlm_reproduce.git
