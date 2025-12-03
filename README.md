@@ -34,6 +34,11 @@
      - 🎯 在 pretrain+SFT 后加入 RLHF，观察质量提升  
      - 📏 构建测评体系，系统评估 VLM 能力
 
+6. **dsa_reproduce**
+   - (建设中)
+   - 基于 Qwen2.5-0.5B 复现 Deepseek Sparse Attention (DSA)
+   - 重点在于推理时的**测评对比**
+
 ## RAG 系列 📚
 待建设，敬请期待。
 
