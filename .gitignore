@@ -2,3 +2,6 @@
 deepctrl-sft-data/
 Qwen2.5-0.5B/
 COIG-P/
+
+dsa_reproduce/warmup_data.jsonl
+dsa_reproduce/__pycache__/

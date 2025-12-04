@@ -1,6 +1,5 @@
 from transformers.models.qwen2.modeling_qwen2 import apply_rotary_pos_emb, repeat_kv
 from typing import Optional, Union, List
-from collections.abc import Callable
 from transformers.cache_utils import Cache, DynamicCache
 from transformers.processing_utils import Unpack
 from transformers.modeling_flash_attention_utils import FlashAttentionKwargs
@@ -13,7 +12,6 @@ from transformers.masking_utils import create_causal_mask, create_sliding_window
 from transformers.generation import GenerationMixin
 import torch
 import torch.nn as nn
-import math
 import torch.nn.functional as F
 from dataclasses import dataclass
 

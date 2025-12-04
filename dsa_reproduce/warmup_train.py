@@ -5,6 +5,8 @@ import torch
 from dataset import SFTDataset
 import torch.nn.functional as F
 
+from load_config import CONFIG
+
 class DSATrainer(Trainer):
     def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
         outputs = model(**inputs, output_attentions=True)
@@ -34,9 +36,7 @@ class DSATrainer(Trainer):
         return (loss, outputs) if return_outputs else loss
 
 if __name__ == '__main__':
-    import os
-
-    model = Qwen2ForCausalLM.from_pretrained("/home/user/Downloads/Qwen2.5-0.5B-Instruct")
+    model = Qwen2ForCausalLM.from_pretrained(CONFIG["base_model_path"])
 
     for name, param in model.named_parameters():
         if 'indexer' not in name:
@@ -50,9 +50,9 @@ if __name__ == '__main__':
     print(f"可训练参数数量: {trainable_params:,}")
     print(f"总参数数量: {total_params:,}")
 
-    tokenizer = AutoTokenizer.from_pretrained("/home/user/Downloads/Qwen2.5-0.5B-Instruct")
+    tokenizer = AutoTokenizer.from_pretrained(CONFIG["tokenizer_path"])
 
-    args = TrainingArguments(output_dir='./step1', 
+    args = TrainingArguments(output_dir=CONFIG["warmup_output_path"], 
                             max_steps=500, 
                             do_train=True, 
                             per_device_train_batch_size=4,
@@ -68,12 +68,12 @@ if __name__ == '__main__':
                             dataloader_num_workers=8,
                             dataloader_pin_memory=True)
     data_collator = DefaultDataCollator()
-    dataset = SFTDataset('warmup_data.jsonl', tokenizer=tokenizer, max_seq_len=2048)
+    dataset = SFTDataset(CONFIG["train_data_path"], tokenizer=tokenizer, max_seq_len=2048)
     trainer = DSATrainer(model=model,
                         args=args, 
                         train_dataset=dataset, 
                         tokenizer=tokenizer, 
                         data_collator=data_collator)
     trainer.train(resume_from_checkpoint=False)
-    trainer.save_model('./step1_model')
+    trainer.save_model(CONFIG["warmup_model_path"])
     trainer.save_state()

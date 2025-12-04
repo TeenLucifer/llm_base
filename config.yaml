@@ -1,0 +1,16 @@
+dsa_reproduce:
+  # 训练和推理使用的分词器/基座模型
+  tokenizer_path: ./Qwen2.5-0.5B
+  base_model_path: ./Qwen2.5-0.5B
+
+  # 原始指令微调数据与预处理输出
+  raw_data_path: ./deepctrl-sft-data/sft_data_zh.jsonl
+  train_data_path: ./dsa_reproduce/warmup_data.jsonl
+
+  # warmup（step1）阶段的输出与模型保存位置
+  warmup_output_path: ./dsa_reproduce/step1
+  warmup_model_path: ./dsa_reproduce/step1_model
+
+  # 联合训练（step2）阶段的输出与模型保存位置
+  train_output_path: ./dsa_reproduce/step2
+  train_model_path: ./dsa_reproduce/step2_model
