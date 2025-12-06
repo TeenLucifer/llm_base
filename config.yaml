@@ -8,9 +8,9 @@ dsa_reproduce:
   train_data_path: ./dsa_reproduce/warmup_data.jsonl
 
   # warmup（step1）阶段的输出与模型保存位置
-  warmup_output_path: ./dsa_reproduce/step1
-  warmup_model_path: ./dsa_reproduce/step1_model
+  warmup_output_path: ./dsa_reproduce/warmup_output
+  warmup_model_path: ./dsa_reproduce/warmuped_model
 
   # 联合训练（step2）阶段的输出与模型保存位置
-  train_output_path: ./dsa_reproduce/step2
-  train_model_path: ./dsa_reproduce/step2_model
+  train_output_path: ./dsa_reproduce/train_output
+  train_model_path: ./dsa_reproduce/trained_model

@@ -53,18 +53,18 @@ if __name__ == '__main__':
 
     tokenizer = AutoTokenizer.from_pretrained(CONFIG["tokenizer_path"])
 
-    args = TrainingArguments(output_dir=CONFIG["finetune_output_path"], 
-                            max_steps=2000, 
+    args = TrainingArguments(output_dir=CONFIG["train_output_path"], 
+                            max_steps=30000, 
                             do_train=True, 
-                            per_device_train_batch_size=2,
-                            gradient_accumulation_steps=4,
-                            logging_steps=1,
+                            per_device_train_batch_size=1,
+                            gradient_accumulation_steps=1,
+                            logging_steps=50,
                             report_to='tensorboard',
                             save_strategy='steps',
-                            save_steps=250,
+                            save_steps=2000,
                             save_total_limit=3,
                             bf16=True,
-                            learning_rate=0.000005,
+                            learning_rate=0.00001,
                             lr_scheduler_type='cosine',
                             dataloader_num_workers=8,
                             dataloader_pin_memory=True)
@@ -75,6 +75,6 @@ if __name__ == '__main__':
                         train_dataset=dataset, 
                         tokenizer=tokenizer, 
                         data_collator=data_collator)
-    trainer.train(resume_from_checkpoint=True)
+    trainer.train(resume_from_checkpoint=False)
     trainer.save_model(CONFIG["train_model_path"])
     trainer.save_state()
