@@ -5,3 +5,7 @@ COIG-P/
 
 dsa_reproduce/warmup_data.jsonl
 dsa_reproduce/__pycache__/
+dsa_reproduce/warmup_output/
+dsa_reproduce/warmuped_model/
+dsa_reproduce/train_output/
+dsa_reproduce/trained_model/

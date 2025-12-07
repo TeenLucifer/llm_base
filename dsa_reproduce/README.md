@@ -1,6 +1,6 @@
 # dsa_reproduce DeepSeek Sparse Attention (DSA) 复现
 
-本项目基于 Qwen2.5-0.5B 语言模型复现 DSA，模型层面修改 + 训练 + 效果测评。
+本项目基于 Qwen2.5-0.5B 语言模型复现 DSA，模型层面修改 + 训练 + 评估。
 
 ## 🎯 项目概述
 复现 DSA（DeepSeek Sparse Attention）：以 Qwen2.5-0.5B 为基座，使用 deepctrl-sft-data 数据集微调，对比引入 DSA 结构后的效果。
@@ -227,7 +227,20 @@ python warmup_train.py
 
 # step 2. 联合训练. 基模与 lightning indexer 联合学习
 python train.py
+
+# 评估训练前后模型吞吐量
+python eval.py
 ```
+
+## 🐞 缺陷
+用训练前后模型推理的吞吐量对比来看效果不明显，有以下两方面原因
+
+1. 目前项目仅实现了 lightning indexer 的训练，而推理时实际的 top-k 稀疏注意力计算依赖于 dense attention，导致存在资源消耗
+    - 优化方案：修复推理时的 top-k 稀疏注意力计算，仅依靠 indexer 选取 top-k 的 k v 值进行矩阵乘法运算
+2. 训练前的模型用 AutoModelForCausalLM 加载，训练后模型用自定义的结构加载，矩阵乘法的算子应用存在差异，导致训练前后模型统计消耗存在差异
+    - 优化方案：自定义一个基于 densen attention 的 qwen2.5-0.5b 模型结构，算子与 sparse attention 的模型结构一致，仅保持sparse attention 和 dense attention 差异进行推理对比
+
+（主包复现这个项目的主要作用是学习和了解 dsa 的机制，学习完训练过程基本已经掌握，上述推理的问题定位到原因后暂时不进行优化）
 
 ## 📖 参考资料
 
