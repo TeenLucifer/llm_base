@@ -35,9 +35,12 @@
      - 📏 构建测评体系，系统评估 VLM 能力
 
 6. **dsa_reproduce**
-   - (建设中)
    - 基于 Qwen2.5-0.5B 复现 Deepseek Sparse Attention (DSA)
-   - 重点在于推理时的**测评对比**
+   - 修改 Qwen2.5-0.5B 模型结构引入 DSA 机制，进行二阶段训练，学习 attention，kv cache 实际在模型中如何实现
+   - 构建评估指标，从吞吐量角度对比训练前后效果
+   - 该项目存在优化空间：
+      - 推理的逻辑可优化，保证推理仅依赖 top-k sparse attention
+      - 评估的体系可优化，保证训练前后的模型计算算子相同，仅对比 dsa 带来的变化
 
 ## RAG 系列 📚
 待建设，敬请期待。
